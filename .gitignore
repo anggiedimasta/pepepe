@@ -1,0 +1,6 @@
+.build/
+Pepepe.app/
+*.zip
+.DS_Store
+*.xcuserstate
+.swiftpm/
