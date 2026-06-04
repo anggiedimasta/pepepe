@@ -18,4 +18,8 @@ enum Constants {
         static let databaseName = "pepepe.sqlite"
         static let appSupportDirectoryName = "Pepepe"
     }
+    
+    enum DataRetention {
+        static let retentionDays = 30
+    }
 }

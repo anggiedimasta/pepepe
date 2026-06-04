@@ -457,4 +457,25 @@ class PingStore: @unchecked Sendable {
         sqlite3_finalize(statement)
         return results
     }
+    
+    func purgeData(olderThan cutoff: Date) {
+        queue.sync {
+            let ts = cutoff.timeIntervalSince1970
+            try? execute(sql: "DELETE FROM ping_results WHERE timestamp < \(ts);")
+            try? execute(sql: "DELETE FROM wifi_snapshots WHERE timestamp < \(ts);")
+            try? execute(sql: "DELETE FROM rto_events WHERE started_at < \(ts);")
+            try? execute(sql: "DELETE FROM sessions WHERE started_at < \(ts);")
+            try? execute(sql: "VACUUM;")
+        }
+    }
+    
+    func clearAllData() {
+        queue.sync {
+            try? execute(sql: "DELETE FROM ping_results;")
+            try? execute(sql: "DELETE FROM wifi_snapshots;")
+            try? execute(sql: "DELETE FROM rto_events;")
+            try? execute(sql: "DELETE FROM sessions;")
+            try? execute(sql: "VACUUM;")
+        }
+    }
 }

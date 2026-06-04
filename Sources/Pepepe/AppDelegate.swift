@@ -7,6 +7,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     var notificationManager: NotificationManager!
     var loginItemManager: LoginItemManager!
     var dailyDigestScheduler: DailyDigestScheduler!
+    var dataRetentionScheduler: DataRetentionScheduler!
     var pingStore: PingStore!
     var pingGuardModule: PingGuardModule!
     var locationManager: CLLocationManager?
@@ -51,5 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
             notificationManager: notificationManager,
             modules: [pingGuardModule]
         )
+        
+        dataRetentionScheduler = DataRetentionScheduler(store: pingStore)
     }
 }

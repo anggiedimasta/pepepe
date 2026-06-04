@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.2 — 2026-06-04
+
+- reports window redesign: glass HUD, stat cards, full network info + all csv columns
+- chart fixes: no overflow, clearer time axis (`HH:mm` instead of bare hours)
+- sticky ping data table header
+- error breakdown by ping failure type
+- auto-clear data older than 30 days
+- clear all data button in reports (with confirmation)
+
 ## 1.0.1 — 2026-06-04
 
 - homebrew cask install (`brew tap anggiedimasta/pepepe` then `brew install --cask pepepe`)

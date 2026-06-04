@@ -21,7 +21,7 @@ made this because i keep blaming wifi when it's actually just my isp having a mo
 - click it → ping chart, ssid, signal strength
 - pings 1.1.1.1 and 8.8.8.8 every 2 seconds while running
 - logs everything to sqlite, survives restarts
-- reports window with date range + csv export
+- reports window with date range, stat cards, chart, full network info + csv export
 - csv rows include wifi context: ssid, ip, gateway, bssid, rssi, dns — so you can tell if ping failed because wifi died or internet died
 - notifications on drop / weak signal
 - auto-start at login if you want
@@ -56,7 +56,7 @@ chmod +x build_app.sh
 
 sqlite db: `~/Library/Application Support/Pepepe/pepepe.sqlite`
 
-export csv from reports window when you need the full dump.
+export csv from reports window when you need the full dump. data older than 30 days is auto-cleared; use **clear all** in reports to wipe everything.
 
 ## license
 
