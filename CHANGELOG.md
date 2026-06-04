@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1 — 2026-06-04
+
+- homebrew cask install (`brew install --cask anggiedimasta/pepepe/pepepe`)
+- new app icon (same waveform as menu bar)
+- ad-hoc codesign in build script
+- readme badges + screenshots
+
 ## 1.0.0 — 2026-06-04
 
 first public release

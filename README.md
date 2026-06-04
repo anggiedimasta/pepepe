@@ -1,8 +1,19 @@
 # pepepe
 
+[![release](https://img.shields.io/github/v/release/anggiedimasta/pepepe)](https://github.com/anggiedimasta/pepepe/releases)
+[![macOS](https://img.shields.io/badge/macOS-14%2B-000000?logo=apple&logoColor=white)]()
+[![Swift](https://img.shields.io/badge/Swift-6-F05138?logo=swift&logoColor=white)]()
+[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
 macos menu bar app. pings cloudflare + google dns, tracks your wifi, tells you when internet acting up.
 
 made this because i keep blaming wifi when it's actually just my isp having a moment. now i have receipts.
+
+## screenshots
+
+| menu bar popover | reports |
+|---|---|
+| ![popover](docs/screenshots/popover.png) | ![reports](docs/screenshots/reports.png) |
 
 ## what you get
 
@@ -23,9 +34,17 @@ location permission required — macos won't give you ssid without it. annoying 
 
 ## install
 
-download `Pepepe.app.zip` from [releases](https://github.com/anggiedimasta/pepepe/releases), unzip, drag to applications.
+**recommended — homebrew:**
 
-or build yourself:
+```bash
+brew install --cask anggiedimasta/pepepe/pepepe
+```
+
+no xattr, no right-click open. just install.
+
+**manual:** download zip from [releases](https://github.com/anggiedimasta/pepepe/releases), unzip, drag to applications. macos might say "damaged" (unsigned app + browser quarantine) — fix with `xattr -cr /Applications/Pepepe.app` or right-click → Open.
+
+**from source:**
 
 ```bash
 chmod +x build_app.sh
