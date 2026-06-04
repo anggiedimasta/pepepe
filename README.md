@@ -1,9 +1,11 @@
 # pepepe
 
-[![release](https://img.shields.io/github/v/release/anggiedimasta/pepepe)](https://github.com/anggiedimasta/pepepe/releases)
-[![macOS](https://img.shields.io/badge/macOS-14%2B-000000?logo=apple&logoColor=white)]()
-[![Swift](https://img.shields.io/badge/Swift-6-F05138?logo=swift&logoColor=white)]()
-[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+**[website](https://anggiedimasta.github.io/pepepe/)** · [releases](https://github.com/anggiedimasta/pepepe/releases) · [source](https://github.com/anggiedimasta/pepepe)
+
+[![release v1.0.2](https://img.shields.io/badge/release-v1.0.2-121011?style=for-the-badge&logo=github&logoColor=white)](https://github.com/anggiedimasta/pepepe/releases)
+[![macOS](https://img.shields.io/badge/macOS_14+-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)]()
+[![Swift](https://img.shields.io/badge/Swift_6-F54A2A?style=for-the-badge&logo=swift&logoColor=white)]()
+[![Licence](https://img.shields.io/github/license/anggiedimasta/pepepe?style=for-the-badge)](LICENSE)
 
 macos menu bar app. pings cloudflare + google dns, tracks your wifi, tells you when internet acting up.
 
