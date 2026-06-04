@@ -2,7 +2,7 @@
 
 ## 1.0.1 — 2026-06-04
 
-- homebrew cask install (`brew install --cask anggiedimasta/pepepe/pepepe`)
+- homebrew cask install (`brew tap anggiedimasta/pepepe` then `brew install --cask pepepe`)
 - new app icon (same waveform as menu bar)
 - ad-hoc codesign in build script
 - readme badges + screenshots

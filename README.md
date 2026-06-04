@@ -37,7 +37,8 @@ location permission required — macos won't give you ssid without it. annoying 
 **recommended — homebrew:**
 
 ```bash
-brew install --cask anggiedimasta/pepepe/pepepe
+brew tap anggiedimasta/pepepe https://github.com/anggiedimasta/pepepe
+brew install --cask pepepe
 ```
 
 no xattr, no right-click open. just install.
