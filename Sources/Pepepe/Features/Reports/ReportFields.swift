@@ -90,7 +90,7 @@ enum ReportFields {
         switch key {
         case "timestamp":
             guard let ping else { return "—" }
-            return ping.timestamp.formatted(.iso8601)
+            return csvTimestampFormatter.string(from: ping.timestamp)
         case "target":
             return ping?.target ?? "—"
         case "success":
@@ -168,6 +168,14 @@ enum ReportFields {
         let step = max(1, pings.count / maxChartPoints)
         return stride(from: 0, to: pings.count, by: step).map { pings[$0] }
     }
+    
+    private static let csvTimestampFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = .current
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssXXXXX"
+        return formatter
+    }()
     
     private static func csvField(_ value: String) -> String {
         if value.contains(",") || value.contains("\"") || value.contains("\n") {

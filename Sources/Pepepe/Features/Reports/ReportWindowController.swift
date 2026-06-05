@@ -5,12 +5,13 @@ import SwiftUI
 class ReportWindowController {
     static let shared = ReportWindowController()
     private var window: NSWindow?
+    private var hostingView: NSHostingView<ReportView>?
     
     func showWindow(store: PingStore) {
         if window == nil {
-            let contentView = ReportView(store: store)
-            let hostingView = NSHostingView(rootView: contentView)
+            let hostingView = NSHostingView(rootView: ReportView(store: store))
             hostingView.translatesAutoresizingMaskIntoConstraints = false
+            self.hostingView = hostingView
             
             let effectView = NSVisualEffectView()
             effectView.material = .hudWindow
@@ -39,7 +40,10 @@ class ReportWindowController {
             window?.center()
             window?.isReleasedWhenClosed = false
             window?.contentView = effectView
+        } else {
+            hostingView?.rootView = ReportView(store: store)
         }
+        
         window?.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
     }

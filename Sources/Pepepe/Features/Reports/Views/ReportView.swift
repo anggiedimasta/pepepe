@@ -7,6 +7,9 @@ struct ReportView: View {
     
     @State private var fromDate = Calendar.current.startOfDay(for: Date())
     @State private var toDate = Date()
+    @State private var loadedFromDate = Calendar.current.startOfDay(for: Date())
+    @State private var loadedToDate = Date()
+    @State private var didInitialLoad = false
     @State private var results: [PingResult] = []
     @State private var wifiSnapshots: [WiFiSnapshot] = []
     @State private var reportRows: [ReportRow] = []
@@ -31,7 +34,7 @@ struct ReportView: View {
         return Double(failedCount) / Double(results.count) * 100
     }
     private var downtimeRate: Double {
-        let span = toDate.timeIntervalSince(fromDate)
+        let span = loadedToDate.timeIntervalSince(loadedFromDate)
         guard span > 0 else { return 0 }
         return totalDowntime / span * 100
     }
@@ -49,7 +52,12 @@ struct ReportView: View {
             }
         }
         .frame(minWidth: 980, minHeight: 760)
-        .task { loadData() }
+        .onAppear {
+            guard !didInitialLoad else { return }
+            didInitialLoad = true
+            resetFilterRange()
+            loadData()
+        }
     }
     
     private var reportContent: some View {
@@ -109,8 +117,8 @@ struct ReportView: View {
             }
             Spacer()
             Button("Refresh") { loadData() }
-                .buttonStyle(.borderedProminent)
-                .disabled(isLoading)
+            .buttonStyle(.borderedProminent)
+            .disabled(isLoading)
         }
     }
     
@@ -200,13 +208,13 @@ struct ReportView: View {
         guard let first = chartResults.map(\.timestamp).min(),
               let last = chartResults.map(\.timestamp).max(),
               first < last else {
-            return fromDate...max(fromDate, toDate)
+            return loadedFromDate...max(loadedFromDate, loadedToDate)
         }
         let span = last.timeIntervalSince(first)
         let pad = max(span * 0.04, 30)
-        let lower = max(fromDate, first.addingTimeInterval(-pad))
-        let upper = min(toDate, last.addingTimeInterval(pad))
-        guard lower < upper else { return fromDate...max(fromDate, toDate) }
+        let lower = max(loadedFromDate, first.addingTimeInterval(-pad))
+        let upper = min(loadedToDate, last.addingTimeInterval(pad))
+        guard lower < upper else { return loadedFromDate...max(loadedFromDate, loadedToDate) }
         return lower...upper
     }
     
@@ -473,6 +481,12 @@ struct ReportView: View {
         return f
     }()
     
+    private func resetFilterRange() {
+        let now = Date()
+        fromDate = Calendar.current.startOfDay(for: now)
+        toDate = now
+    }
+    
     private func loadData() {
         guard !isLoading else { return }
         isLoading = true
@@ -489,19 +503,30 @@ struct ReportView: View {
                 wifiSnapshots = data.wifiSnapshots
                 reportRows = rows
                 totalDowntime = data.totalDowntime
+                loadedFromDate = from
+                loadedToDate = to
                 isLoading = false
             }
         }
     }
     
     private func exportCSV() {
-        ReportExporter.exportCSV(
-            results: results,
-            wifiSnapshots: wifiSnapshots,
-            from: fromDate,
-            to: toDate,
-            window: NSApp.keyWindow
-        )
+        let from = fromDate
+        let to = toDate
+        let window = NSApp.keyWindow
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let data = store.fetchReportData(from: from, to: to)
+            DispatchQueue.main.async {
+                ReportExporter.exportCSV(
+                    results: data.results,
+                    wifiSnapshots: data.wifiSnapshots,
+                    from: from,
+                    to: to,
+                    window: window
+                )
+            }
+        }
     }
     
     private func confirmClearAllData() {

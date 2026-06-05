@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.3 — 2026-06-05
+
+- report filter applies on refresh only (date picker no longer live-updates chart/stats)
+- report window opens with today 00:00 → now range
+- export re-fetches from db with current filter (fixes stale csv data)
+- csv timestamps use local timezone offset instead of utc `Z`
+
 ## 1.0.2 — 2026-06-04
 
 - reports window redesign: glass HUD, stat cards, full network info + all csv columns
