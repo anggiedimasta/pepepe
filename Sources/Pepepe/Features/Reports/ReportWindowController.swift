@@ -6,10 +6,14 @@ class ReportWindowController {
     static let shared = ReportWindowController()
     private var window: NSWindow?
     private var hostingView: NSHostingView<ReportView>?
+    private var presentationID = UUID()
     
     func showWindow(store: PingStore) {
+        presentationID = UUID()
+        let contentView = ReportView(store: store, presentationID: presentationID)
+        
         if window == nil {
-            let hostingView = NSHostingView(rootView: ReportView(store: store))
+            let hostingView = NSHostingView(rootView: contentView)
             hostingView.translatesAutoresizingMaskIntoConstraints = false
             self.hostingView = hostingView
             
@@ -41,7 +45,7 @@ class ReportWindowController {
             window?.isReleasedWhenClosed = false
             window?.contentView = effectView
         } else {
-            hostingView?.rootView = ReportView(store: store)
+            hostingView?.rootView = contentView
         }
         
         window?.makeKeyAndOrderFront(nil)

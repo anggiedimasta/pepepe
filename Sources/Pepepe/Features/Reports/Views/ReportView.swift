@@ -4,12 +4,12 @@ import Charts
 
 struct ReportView: View {
     let store: PingStore
+    let presentationID: UUID
     
     @State private var fromDate = Calendar.current.startOfDay(for: Date())
     @State private var toDate = Date()
     @State private var loadedFromDate = Calendar.current.startOfDay(for: Date())
     @State private var loadedToDate = Date()
-    @State private var didInitialLoad = false
     @State private var results: [PingResult] = []
     @State private var wifiSnapshots: [WiFiSnapshot] = []
     @State private var reportRows: [ReportRow] = []
@@ -52,9 +52,7 @@ struct ReportView: View {
             }
         }
         .frame(minWidth: 980, minHeight: 760)
-        .onAppear {
-            guard !didInitialLoad else { return }
-            didInitialLoad = true
+        .task(id: presentationID) {
             resetFilterRange()
             loadData()
         }

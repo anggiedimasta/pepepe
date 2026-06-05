@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.7 — 2026-06-04
+
+- reports: reset filter + reload on every window open (fixes stale range on reopen)
+
 ## 1.0.6 — 2026-06-05
 
 - popover: remove checkmark on auto-start at login row
