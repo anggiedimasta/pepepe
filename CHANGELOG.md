@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.8 — 2026-06-04
+
+- reports chart: pinch to zoom, drag to pan, double-click or reset button to fit
+
 ## 1.0.7 — 2026-06-04
 
 - reports: reset filter + reload on every window open (fixes stale range on reopen)

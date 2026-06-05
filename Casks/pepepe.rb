@@ -1,6 +1,6 @@
 cask "pepepe" do
-  version "1.0.7"
-  sha256 "002a85fdeca345fba0396dab264e0b1310700d6173b3bd205cf47ef8025cbd8d"
+  version "1.0.8"
+  sha256 "7c3d84c18692d4956bef425da5593733bc2f6a4f5f65e05d9bb25e16d90efdcd"
 
   url "https://github.com/anggiedimasta/pepepe/releases/download/v#{version}/Pepepe-v#{version}.zip"
   name "Pepepe"

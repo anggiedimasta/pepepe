@@ -1,6 +1,5 @@
 import AppKit
 import SwiftUI
-import Charts
 
 struct ReportView: View {
     let store: PingStore
@@ -192,106 +191,18 @@ struct ReportView: View {
         return items
     }
     
-    private var chartYDomain: ClosedRange<Double> {
-        let maxLatency = chartResults.compactMap { $0.isSuccess ? $0.latencyMs : nil }.max() ?? 100
-        let upper = max(100, maxLatency * 1.12)
-        return 0...upper
-    }
-    
-    private var failedChartY: Double {
-        chartYDomain.upperBound * 0.94
-    }
-    
-    private var chartXDomain: ClosedRange<Date> {
-        guard let first = chartResults.map(\.timestamp).min(),
-              let last = chartResults.map(\.timestamp).max(),
-              first < last else {
-            return loadedFromDate...max(loadedFromDate, loadedToDate)
-        }
-        let span = last.timeIntervalSince(first)
-        let pad = max(span * 0.04, 30)
-        let lower = max(loadedFromDate, first.addingTimeInterval(-pad))
-        let upper = min(loadedToDate, last.addingTimeInterval(pad))
-        guard lower < upper else { return loadedFromDate...max(loadedFromDate, loadedToDate) }
-        return lower...upper
-    }
-    
-    private var chartXAxisFormat: Date.FormatStyle {
-        let span = chartXDomain.upperBound.timeIntervalSince(chartXDomain.lowerBound)
-        if span < 3600 {
-            return .dateTime.hour(.twoDigits(amPM: .omitted)).minute(.twoDigits).second(.twoDigits)
-        }
-        if span < 86_400 {
-            return .dateTime.hour(.twoDigits(amPM: .omitted)).minute(.twoDigits)
-        }
-        if span < 604_800 {
-            return .dateTime.month(.abbreviated).day().hour(.twoDigits(amPM: .omitted)).minute(.twoDigits)
-        }
-        return .dateTime.month(.abbreviated).day()
-    }
-    
     private var chartSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Latency (ms)")
                 .font(.headline)
             
             GlassCard {
-                VStack(spacing: 8) {
-                    Chart {
-                        ForEach(chartResults, id: \.id) { result in
-                            if result.isSuccess, let lat = result.latencyMs {
-                                PointMark(
-                                    x: .value("Time", result.timestamp),
-                                    y: .value("Latency", min(lat, chartYDomain.upperBound))
-                                )
-                                .foregroundStyle(Color.blue)
-                                .symbolSize(18)
-                            } else {
-                                PointMark(
-                                    x: .value("Time", result.timestamp),
-                                    y: .value("Latency", failedChartY)
-                                )
-                                .foregroundStyle(Color.red)
-                                .symbolSize(20)
-                            }
-                        }
-                    }
-                    .chartXScale(domain: chartXDomain)
-                    .chartYScale(domain: chartYDomain)
-                    .chartXAxis {
-                        AxisMarks(values: .automatic(desiredCount: 6)) { value in
-                            AxisGridLine()
-                            AxisTick()
-                            if let date = value.as(Date.self) {
-                                AxisValueLabel {
-                                    Text(date.formatted(chartXAxisFormat))
-                                        .font(.caption2)
-                                }
-                            }
-                        }
-                    }
-                    .chartYAxis {
-                        AxisMarks(position: .leading)
-                    }
-                    .chartPlotStyle { plotArea in
-                        plotArea.clipShape(Rectangle())
-                    }
-                    .frame(height: 200)
-                    .clipped()
-                    
-                    HStack(spacing: 20) {
-                        legendItem(color: .blue, label: "Success")
-                        legendItem(color: .red, label: "Failed")
-                    }
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    
-                    if results.count > ReportFields.maxChartPoints {
-                        Text("Chart shows \(chartResults.count) sampled points of \(results.count) total.")
-                            .font(.caption2)
-                            .foregroundStyle(.tertiary)
-                    }
-                }
+                ReportLatencyChart(
+                    results: chartResults,
+                    totalCount: results.count,
+                    loadedFromDate: loadedFromDate,
+                    loadedToDate: loadedToDate
+                )
             }
         }
     }
@@ -437,13 +348,6 @@ struct ReportView: View {
                 .foregroundStyle(success ? .green : .red)
             Text(success ? "Yes" : "No")
                 .font(.caption)
-        }
-    }
-    
-    private func legendItem(color: Color, label: String) -> some View {
-        HStack(spacing: 6) {
-            Circle().fill(color).frame(width: 8, height: 8)
-            Text(label)
         }
     }
     
