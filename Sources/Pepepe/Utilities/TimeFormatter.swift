@@ -1,6 +1,18 @@
 import Foundation
 
 struct TimeFormatter {
+    private static let displayDateTimeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale.current
+        formatter.timeZone = .current
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }()
+    
+    static func formatDisplayDateTime(_ date: Date) -> String {
+        displayDateTimeFormatter.string(from: date)
+    }
+    
     static func formatDuration(_ seconds: TimeInterval) -> String {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]

@@ -48,7 +48,7 @@ enum ReportFields {
     
     static func csvRow(for row: ReportRow) -> String {
         let values = csvColumns.map { column in
-            csvField(value(for: column.key, row: row))
+            csvField(csvRawValue(for: column.key, row: row))
         }
         return values.joined(separator: ",")
     }
@@ -79,7 +79,25 @@ enum ReportFields {
     }
     
     static func tableValue(for key: String, row: ReportRow) -> String {
-        value(for: key, row: row)
+        rawValue(for: key, row: row)
+    }
+    
+    private static func rawValue(for key: String, row: ReportRow) -> String {
+        switch key {
+        case "timestamp":
+            return TimeFormatter.formatDisplayDateTime(row.ping.timestamp)
+        default:
+            return value(for: key, row: row)
+        }
+    }
+    
+    private static func csvRawValue(for key: String, row: ReportRow) -> String {
+        switch key {
+        case "timestamp":
+            return csvTimestampFormatter.string(from: row.ping.timestamp)
+        default:
+            return value(for: key, row: row)
+        }
     }
     
     private static func value(for key: String, row: ReportRow) -> String {
@@ -88,9 +106,6 @@ enum ReportFields {
     
     private static func value(for key: String, wifi: WiFiSnapshot?, ping: PingResult?) -> String {
         switch key {
-        case "timestamp":
-            guard let ping else { return "—" }
-            return csvTimestampFormatter.string(from: ping.timestamp)
         case "target":
             return ping?.target ?? "—"
         case "success":

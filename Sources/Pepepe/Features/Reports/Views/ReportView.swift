@@ -394,7 +394,7 @@ struct ReportView: View {
     
     private func columnWidth(for key: String) -> CGFloat {
         switch key {
-        case "timestamp": return 172
+        case "timestamp": return 158
         case "target": return 88
         case "success": return 88
         case "pingError": return 120
@@ -451,7 +451,7 @@ struct ReportView: View {
     
     private var lastUpdatedText: String {
         guard let ts = latestWifi?.timestamp else { return "—" }
-        return Self.tableDateFormatter.string(from: ts)
+        return TimeFormatter.formatDisplayDateTime(ts)
     }
     
     private var recordCountText: String {
@@ -472,12 +472,6 @@ struct ReportView: View {
     private static let countFormatter: NumberFormatter = {
         let f = NumberFormatter()
         f.numberStyle = .decimal
-        return f
-    }()
-    
-    private static let tableDateFormatter: DateFormatter = {
-        let f = DateFormatter()
-        f.dateFormat = "MMM d HH:mm"
         return f
     }()
     

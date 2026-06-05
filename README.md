@@ -2,7 +2,7 @@
 
 **[website](https://anggiedimasta.github.io/pepepe/)** · [releases](https://github.com/anggiedimasta/pepepe/releases) · [source](https://github.com/anggiedimasta/pepepe)
 
-[![release v1.0.4](https://img.shields.io/badge/release-v1.0.4-121011?style=for-the-badge&logo=github&logoColor=white)](https://github.com/anggiedimasta/pepepe/releases)
+[![release v1.0.5](https://img.shields.io/badge/release-v1.0.5-121011?style=for-the-badge&logo=github&logoColor=white)](https://github.com/anggiedimasta/pepepe/releases)
 [![macOS](https://img.shields.io/badge/macOS_14+-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)]()
 [![Swift](https://img.shields.io/badge/Swift_6-F54A2A?style=for-the-badge&logo=swift&logoColor=white)]()
 [![Licence](https://img.shields.io/github/license/anggiedimasta/pepepe?style=for-the-badge)](LICENSE)
@@ -45,12 +45,6 @@ brew install --cask pepepe
 
 no xattr, no right-click open. just install.
 
-upgrade stuck? app missing from `/Applications` — brew lost track. fix:
-```bash
-brew uninstall --cask --force pepepe
-brew install --cask pepepe
-```
-
 **manual:** download zip from [releases](https://github.com/anggiedimasta/pepepe/releases), unzip, drag to applications. macos might say "damaged" (unsigned app + browser quarantine) — fix with `xattr -cr /Applications/Pepepe.app` or right-click → Open.
 
 **from source:**
@@ -58,6 +52,24 @@ brew install --cask pepepe
 ```bash
 chmod +x build_app.sh
 ./build_app.sh
+```
+
+## update
+
+**homebrew:**
+
+```bash
+brew update
+brew upgrade --cask pepepe
+```
+
+**manual:** download latest zip from [releases](https://github.com/anggiedimasta/pepepe/releases), replace `Pepepe.app` in Applications.
+
+upgrade stuck? app missing from `/Applications` — brew lost track. fix:
+
+```bash
+brew uninstall --cask --force pepepe
+brew install --cask pepepe
 ```
 
 ## data

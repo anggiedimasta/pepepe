@@ -14,6 +14,8 @@ struct ReportExporter {
         panel.allowedContentTypes = [.commaSeparatedText]
         
         let df = DateFormatter()
+        df.locale = Locale(identifier: "en_US_POSIX")
+        df.timeZone = .current
         df.dateFormat = "yyyyMMdd_HHmmss"
         let fromStr = df.string(from: from)
         let toStr = df.string(from: to)

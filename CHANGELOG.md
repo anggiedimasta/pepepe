@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.5 — 2026-06-05
+
+- report ui timestamps show local date/time (db unchanged)
+- popover chart axis uses local `HH:mm:ss`
+- readme: separate update section under install
+
 ## 1.0.4 — 2026-06-05
 
 - homebrew cask: add `uninstall quit` for cleaner upgrades
