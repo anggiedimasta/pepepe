@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4 — 2026-06-05
+
+- homebrew cask: add `uninstall quit` for cleaner upgrades
+- readme: document force reinstall when app missing from `/Applications`
+
 ## 1.0.3 — 2026-06-05
 
 - report filter applies on refresh only (date picker no longer live-updates chart/stats)
