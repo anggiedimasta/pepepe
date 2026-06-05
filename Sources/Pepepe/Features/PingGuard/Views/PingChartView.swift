@@ -64,7 +64,7 @@ struct PingChartView: View {
         let f = DateFormatter()
         f.locale = Locale.current
         f.timeZone = .current
-        f.dateFormat = "HH:mm:ss"
+        f.dateFormat = "m:ss"
         return f
     }()
     

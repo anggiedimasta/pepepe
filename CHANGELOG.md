@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.6 — 2026-06-05
+
+- popover: remove checkmark on auto-start at login row
+- popover: show read-only version above quit
+- popover chart x-axis labels use minute:second (`m:ss`)
+
 ## 1.0.5 — 2026-06-05
 
 - report ui timestamps show local date/time (db unchanged)

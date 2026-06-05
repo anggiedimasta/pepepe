@@ -88,11 +88,6 @@ struct ControlCenterView: View {
                         Text("Auto-start at Login")
                             .font(.system(size: 13, weight: .medium))
                         Spacer()
-                        if loginItemManager.isEnabled {
-                            Image(systemName: "checkmark")
-                                .foregroundColor(.blue)
-                                .font(.system(size: 13, weight: .bold))
-                        }
                     }
                     .padding(12)
                     .contentShape(Rectangle())
@@ -113,6 +108,15 @@ struct ControlCenterView: View {
             Divider()
 
             VStack(spacing: 0) {
+                Text("Version \(Constants.App.version)")
+                    .font(.system(size: 11))
+                    .foregroundColor(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                
+                Divider()
+                
                 HoverableRow(icon: "power", title: "Quit Pepepe", isDestructive: true) {
                     NSApplication.shared.terminate(nil)
                 }

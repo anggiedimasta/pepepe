@@ -17,6 +17,10 @@ enum Constants {
     enum App {
         static let databaseName = "pepepe.sqlite"
         static let appSupportDirectoryName = "Pepepe"
+        
+        static var version: String {
+            Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "dev"
+        }
     }
     
     enum DataRetention {
