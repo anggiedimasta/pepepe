@@ -11,6 +11,8 @@ cask "pepepe" do
 
   app "Pepepe.app"
 
+  uninstall quit: "com.anggiedimasta.pepepe"
+
   postflight do
     system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", staged_path/"Pepepe.app"]
   end

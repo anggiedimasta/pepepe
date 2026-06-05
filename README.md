@@ -45,6 +45,12 @@ brew install --cask pepepe
 
 no xattr, no right-click open. just install.
 
+upgrade stuck? app missing from `/Applications` — brew lost track. fix:
+```bash
+brew uninstall --cask --force pepepe
+brew install --cask pepepe
+```
+
 **manual:** download zip from [releases](https://github.com/anggiedimasta/pepepe/releases), unzip, drag to applications. macos might say "damaged" (unsigned app + browser quarantine) — fix with `xattr -cr /Applications/Pepepe.app` or right-click → Open.
 
 **from source:**
